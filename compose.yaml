@@ -10,8 +10,9 @@ services:
     search2kakaku:
         build:
             context: https://github.com/gkjg8787/search2kakaku.git
-        tty: true
         init: true
+        ports:
+            - "8120:8120"
         depends_on:
             - search
         volumes:
@@ -30,6 +31,8 @@ services:
             nofile:
                 soft: 32768
                 hard: 32768
+        profiles:
+            - selenium
     search:
         build:
             context: https://github.com/gkjg8787/external_search.git
@@ -40,7 +43,6 @@ services:
         volumes:
             - ./search/settings.py:/app/ex_search/settings.py
         depends_on:
-            - selenium
             - nodriver_api
     redis:
         image: redis:latest
@@ -57,6 +59,7 @@ services:
             - ./data/search2kakaku/db:/app/db
             - ./data/search2kakaku/log:/app/log
         depends_on:
+            - search
             - redis
     celery_beat:
         build:
@@ -68,7 +71,17 @@ services:
             - ./data/search2kakaku/db:/app/db
             - ./data/search2kakaku/log:/app/log
         depends_on:
+            - search
             - redis
+    search_gui:
+        build:
+            context: https://github.com/gkjg8787/external_search_gui.git
+        ports:
+            - "8110:8110"
+        depends_on:
+            - search
+        volumes:
+            - ./search_gui/settings.py:/app/ex_search_gui/settings.py
     nodriver_api:
         build:
             context: https://github.com/gkjg8787/nodriver_api.git
