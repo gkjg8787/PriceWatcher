@@ -7,6 +7,8 @@ services:
         init: true
         volumes:
             - ./kakaku/settings.py:/app/kakaku/settings.py
+            - ./data/kakaku/db:/app/db
+            - ./data/kakaku/log:/app/log
     search2kakaku:
         build:
             context: https://github.com/gkjg8787/search2kakaku.git
@@ -42,6 +44,9 @@ services:
             - ./search/.env
         volumes:
             - ./search/settings.py:/app/ex_search/settings.py
+            - ./data/search/db:/app/db
+            - ./data/search/log:/app/log
+            - ./data/search/cookies:/app/cookies
         depends_on:
             - nodriver_api
     redis:
@@ -82,10 +87,14 @@ services:
             - search
         volumes:
             - ./search_gui/settings.py:/app/ex_search_gui/settings.py
+            - ./data/search_gui/db:/app/db
+            - ./data/search_gui/log:/app/log
     nodriver_api:
         build:
             context: https://github.com/gkjg8787/nodriver_api.git
         init: true
         ports:
             - "8090:8090"
-
+        shm_size: "2gb"
+        volumes:
+            - ./data/nodriver/cookies:/app/cookies

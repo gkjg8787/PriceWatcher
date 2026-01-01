@@ -4,6 +4,7 @@ sed -i 's|AUTO_STARTUP_BACKSERVER = {"auto": False}|AUTO_STARTUP_BACKSERVER = {"
 sed -i 's|ALLOW_UNSUPPORTED_LINKS_IN_HTML = False|ALLOW_UNSUPPORTED_LINKS_IN_HTML = True|g' kakaku/settings.py
 sed -i 's|"enable": False,|"enable": True,|g' kakaku/settings.py
 sed -i 's|"enabled": False,|"enabled": True,|g' kakaku/settings.py
+sed -i '/"links": \[/,/\]/ s|^[[:space:]]*\],|            {"enabled": True, "name": "s2k", "url": "http://localhost:8120/"},\n        \],|' kakaku/settings.py
 
 mkdir search2kakaku
 curl -o search2kakaku/settings.py https://raw.githubusercontent.com/gkjg8787/search2kakaku/refs/heads/master/search2kakaku/settings.py
@@ -11,6 +12,7 @@ sed -i 's|http://localhost:8060/api/|http://search:8060/api/|g' search2kakaku/se
 sed -i 's|http://localhost:8000/api/|http://kakaku:8000/api/|g' search2kakaku/settings.py
 sed -i 's|"to_link": False,|"to_link": True,|g' search2kakaku/settings.py
 sed -i 's|"base_url": "post_data"|"base_url": "http://localhost:8000"|g' search2kakaku/settings.py
+sed -i 's|"notify_to_api": False,|"notify_to_api": True,|' search2kakaku/settings.py
 
 mkdir search
 curl -o search/settings.py https://raw.githubusercontent.com/gkjg8787/external_search/refs/heads/main/ex_search/settings.py
