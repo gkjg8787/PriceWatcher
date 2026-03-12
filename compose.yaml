@@ -21,20 +21,6 @@ services:
             - ./search2kakaku/settings.py:/app/search2kakaku/settings.py
             - ./data/search2kakaku/db:/app/db
             - ./data/search2kakaku/log:/app/log
-    selenium:
-        container_name: selenium-chrome
-        image: selenium/standalone-chrome
-        ports:
-            - "4444:4444"
-            - "5900:5900"
-            - "7900:7900"
-        shm_size: "2gb"
-        ulimits:
-            nofile:
-                soft: 32768
-                hard: 32768
-        profiles:
-            - selenium
     search:
         build:
             context: https://github.com/gkjg8787/external_search.git
@@ -91,10 +77,12 @@ services:
             - ./data/search_gui/log:/app/log
     nodriver_api:
         build:
-            context: https://github.com/gkjg8787/nodriver_api.git
+            context: https://github.com/gkjg8787/search_query_analysis.git
         init: true
         ports:
             - "8090:8090"
         shm_size: "2gb"
+        command : uvicorn main:app --host 0.0.0.0 --port 8090
         volumes:
-            - ./data/nodriver/cookies:/app/cookies
+            - ./data/nodriver_api/cookie:/app/cookie
+    

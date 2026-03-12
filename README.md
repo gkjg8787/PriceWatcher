@@ -40,4 +40,4 @@ bash create_container.sh
 - [search2kakaku](https://github.com/gkjg8787/search2kakaku)
 - [search_gui](https://github.com/gkjg8787/external_search_gui)
 - [external_search](https://github.com/gkjg8787/external_search)
-- [nodriver_api](https://github.com/gkjg8787/nodriver_api)
+- [search_query_analysis(nodriver_apiのHTMLダウンロード機能含む)](https://github.com/gkjg8787/search_query_analysis)

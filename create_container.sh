@@ -21,6 +21,7 @@ sed -i 's|"base_url": "http://nodriver:8090"|"base_url": "http://nodriver_api:80
 mkdir search_gui
 curl -o search_gui/settings.py https://raw.githubusercontent.com/gkjg8787/external_search_gui/refs/heads/main/ex_search_gui/settings.py
 sed -i 's|"url": "http://localhost:8060/api/",|"url": "http://search:8060/api/",|g' search_gui/settings.py
+sed -i 's|"url": "http://localhost:8090/"|"url": "http://nodriver_api:8090/"|g' search_gui/settings.py
 sed -i 's|"registration": False|"registration": True|g' search_gui/settings.py
 sed -i 's|"enabled": False,|"enabled": True,|g' search_gui/settings.py
 
